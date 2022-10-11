@@ -1,0 +1,18 @@
+
+currentBuild.displayName = "online"+currentBuild.number
+pipeline {
+    agent any
+
+    stages {
+        stage('gitclone') {
+            steps {
+                git credentialsId: 'git_credential', url: 'https://github.com/harish311/apacher.git'
+            }
+        }
+        stage('ansible') {
+            steps {
+                ansiblePlaybook credentialsId: 'adda', disableHostKeyChecking: true, installation: 'Ansible', inventory: 'test.inv', playbook: 'apache.yml'
+            }
+        }
+    }
+}
