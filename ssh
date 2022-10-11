@@ -1,0 +1,18 @@
+
+
+pipeline {
+    agent any
+
+    stages {
+        stage('clone') {
+            steps {
+                git 'https://github.com/harish311/testmebest.git'
+            }
+        }
+        stage('ssd') {
+            steps {
+                sh 'sshpass -p root scp -o StrictHostKeyChecking=no index.html root@192.168.0.107:/var/www/html/'
+            }
+        }
+    }
+}
